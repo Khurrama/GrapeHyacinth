@@ -4,7 +4,6 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
@@ -35,12 +34,29 @@ public class GrapeHyacinth extends ApplicationAdapter {
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
-        font12.draw(batch, "Hello world, again!", 200,200);
+        font12.draw(batch, "Hello world, again!", 0, 0);
 		batch.end();
 	}
 
     @Override
+    public void resize(int width, int height) {
+        // TODO AUTO-generated method stub
+    }
+
+    @Override
+    public void pause() {
+        // TODO AUTO-generated method stub
+    }
+
+    @Override
+    public void resume() {
+        // TODO AUTO-generated method stub
+    }
+
+    @Override
     public void dispose() {
+        // TODO AUTO-generated method stub
 
     }
+
 }
