@@ -1,62 +1,22 @@
 package com.bluebelle.grapeHyacinth;
 
-import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.Game;
+import com.bluebelle.grapeHyacinth.Assets.Assets;
+import com.bluebelle.grapeHyacinth.GameScreen.GameScreen;
 
 
-public class GrapeHyacinth extends ApplicationAdapter {
-	private SpriteBatch batch;
-//	private BitmapFont font;
-	private FreeTypeFontGenerator generator;
-    private FreeTypeFontGenerator.FreeTypeFontParameter parameter;
-    private BitmapFont font12;
+public class GrapeHyacinth extends Game {
 
-	@Override
-	public void create () {
-		batch = new SpriteBatch();
-	    //font = new BitmapFont();
-        generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/segoeui.ttf"));
-        parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-
-        parameter.size = 64;
-        font12 = generator.generateFont(parameter); //font size 12 pixels
-        font12.setColor(Color.BLACK);
-        generator.dispose();
-    }
-
-	@Override
-	public void render () {
-		Gdx.gl.glClearColor(1, 1, 1, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		batch.begin();
-        font12.draw(batch, "Hello world, again!", 200, 200);
-		batch.end();
-	}
+    private GameScreen GameScreen;
 
     @Override
-    public void resize(int width, int height) {
-        // TODO AUTO-generated method stub
-    }
+    public void create() {
+        //Init Assets.Load Loading Background
+        Assets.Load();
 
-    @Override
-    public void pause() {
-        // TODO AUTO-generated method stub
-    }
+        GameScreen = new GameScreen(this);
 
-    @Override
-    public void resume() {
-        // TODO AUTO-generated method stub
-    }
+        setScreen(GameScreen);
 
-    @Override
-    public void dispose() {
-        // TODO AUTO-generated method stub
-
-    }
-
+        }
 }
