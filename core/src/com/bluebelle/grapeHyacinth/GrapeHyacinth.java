@@ -34,7 +34,7 @@ public class GrapeHyacinth extends ApplicationAdapter {
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
-        font12.draw(batch, "Hello world, again!", 0, 0);
+        font12.draw(batch, "Hello world, again!", 200, 200);
 		batch.end();
 	}
 
