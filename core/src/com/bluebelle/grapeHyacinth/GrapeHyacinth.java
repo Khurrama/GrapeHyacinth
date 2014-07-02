@@ -17,7 +17,6 @@ public class GrapeHyacinth extends Game {
         GameScreen = new GameScreen(this);
 
         setScreen(GameScreen);
-}
-
 
         }
+}
