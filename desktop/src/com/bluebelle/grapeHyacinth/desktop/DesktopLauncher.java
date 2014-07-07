@@ -5,11 +5,14 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.bluebelle.grapeHyacinth.GrapeHyacinth;
 
 public class DesktopLauncher {
-	public static void main (String[] arg) {
-		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		new LwjglApplication(new GrapeHyacinth(), config);
+
+    public static void main(String[] args) {
+       LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
+
         config.useGL30 = true;
         config.title = "GrapeHyacinth";
 
-	}
+      new LwjglApplication(new GrapeHyacinth(), config);
+
+    }
 }
