@@ -1,17 +1,16 @@
-package com.bluebelle.grapeHyacinth.GameScreen;
+package com.bluebelle.grapeHyacinth.Screens;
 
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
-import com.bluebelle.grapeHyacinth.Assets.Assets;
 import com.bluebelle.grapeHyacinth.GrapeHyacinth;
-
-import java.security.Key;
+import com.bluebelle.grapeHyacinth.Helpers.LevelRenderer;
+import com.bluebelle.grapeHyacinth.Objects.Levels.Level;
 
 
 /**
@@ -19,16 +18,28 @@ import java.security.Key;
  */
 public class GameScreen implements Screen {
 
-    private GrapeHyacinth game;
+ /*  private GrapeHyacinth game; */
     private OrthographicCamera camera;
-    SpriteBatch batch;
-    Vector3 touch;
+ /*   SpriteBatch batch;
+    Vector3 touch; */
 
-    int spriteMariox;
-    int spriteMarioy;
+    private Level level;
+    private LevelRenderer renderer;
 
+    @Override
+    public void show() {
+        level = new Level();
+        renderer = new LevelRenderer(level);
+    }
 
-    public GameScreen(GrapeHyacinth game){
+    @Override
+    public void render(float delta) {
+        Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1);
+        Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
+        renderer.render();
+    }
+
+ /*   public GameScreen(GrapeHyacinth game){
         this.game = game;
         camera = new OrthographicCamera();
         camera.setToOrtho(true, 1920, 1080);
@@ -37,14 +48,15 @@ public class GameScreen implements Screen {
 
         touch = new Vector3();
 
-        spriteMariox = 55 - 128;
-        spriteMarioy = 960 - 128;
+        mario = new Mario();
 
-//        spriteBack.flip(false, true);
+        floor = new Floor();
+
+        spriteBack.flip(false, true);
 
     }
     @Override
-    public void render(float delta) {
+      public void render(float delta) {
         Gdx.gl.glClearColor(0.95f,0.95f, 0.95f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -55,7 +67,8 @@ public class GameScreen implements Screen {
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
         batch.draw(Assets.spriteBack, 0, 0);
-        batch.draw(Assets.spriteMario, spriteMariox, spriteMarioy);
+        batch.draw(mario.image, mario.bounds.x, mario.bounds.y);
+        batch.draw(floor.image, floor.bounds.x, floor.bounds.y);
         batch.end();
 
     }
@@ -63,25 +76,26 @@ public class GameScreen implements Screen {
         if (Gdx.input.isTouched()) {
             touch.set(Gdx.input.getX(), (Gdx.input.getY()), 0);
             camera.unproject(touch);
-            spriteMariox =  (int)touch.x;
-            spriteMarioy = (int)touch.y;
         }
 
     }
-
+*/
     public void generalUpdate() {
         if (Gdx.input.isKeyPressed(Input.Keys.Q) || Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            spriteMariox -= 5;
+       //     mario.bounds.x -= 5;
         }
         if (Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            spriteMariox += 5;
+        //    mario.bounds.x += 5;
         }
         if (Gdx.input.isKeyPressed(Input.Keys.Z) || Gdx.input.isKeyPressed(Input.Keys.UP)) {
-
+       //     mario.bounds.y -= 5;
         }
         if (Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-
+       //     mario.bounds.y += 5;
         }
+      //  if(mario.bounds.overlaps(floor.bounds)) {
+       //     mario.
+      //  }
     }
 
     @Override
@@ -92,8 +106,8 @@ public class GameScreen implements Screen {
     public void resume() { }
     @Override
     public void pause() { }
-    @Override
-    public void show() {}
+    /*@Override
+    public void show() {}*/
 
 
     //Lesser used
