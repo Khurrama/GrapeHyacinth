@@ -1,14 +1,17 @@
 package com.bluebelle.grapeHyacinth.Screens;
 
 
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
 import com.bluebelle.grapeHyacinth.GrapeHyacinth;
+import com.bluebelle.grapeHyacinth.Helpers.LevelController;
 import com.bluebelle.grapeHyacinth.Helpers.LevelRenderer;
 import com.bluebelle.grapeHyacinth.Objects.Levels.Level;
 
@@ -16,105 +19,135 @@ import com.bluebelle.grapeHyacinth.Objects.Levels.Level;
 /**
  * Created by Mios on 2/07/2014.
  */
-public class GameScreen implements Screen {
+public class GameScreen implements Screen, InputProcessor {
 
- /*  private GrapeHyacinth game; */
-    private OrthographicCamera camera;
- /*   SpriteBatch batch;
-    Vector3 touch; */
+    private Level 			level;
+    private LevelRenderer 	renderer;
+    private LevelController controller;
 
-    private Level level;
-    private LevelRenderer renderer;
+    private int width, height;
 
     @Override
     public void show() {
         level = new Level();
-        renderer = new LevelRenderer(level);
+        renderer = new LevelRenderer(level, true);
+        controller = new LevelController(level);
+        Gdx.input.setInputProcessor(this);
     }
 
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1);
         Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
+
+        controller.update(delta);
         renderer.render();
     }
 
- /*   public GameScreen(GrapeHyacinth game){
-        this.game = game;
-        camera = new OrthographicCamera();
-        camera.setToOrtho(true, 1920, 1080);
-
-        batch = new SpriteBatch();
-
-        touch = new Vector3();
-
-        mario = new Mario();
-
-        floor = new Floor();
-
-        spriteBack.flip(false, true);
-
-    }
     @Override
-      public void render(float delta) {
-        Gdx.gl.glClearColor(0.95f,0.95f, 0.95f, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-        camera.update();
-        generalUpdate();
-        generalUpdate(touch, camera);
-
-        batch.setProjectionMatrix(camera.combined);
-        batch.begin();
-        batch.draw(Assets.spriteBack, 0, 0);
-        batch.draw(mario.image, mario.bounds.x, mario.bounds.y);
-        batch.draw(floor.image, floor.bounds.x, floor.bounds.y);
-        batch.end();
-
+    public void resize(int width, int height) {
+        renderer.setSize(width, height);
+        this.width = width;
+        this.height = height;
     }
-    public void generalUpdate(Vector3 touch, OrthographicCamera camera) {
-        if (Gdx.input.isTouched()) {
-            touch.set(Gdx.input.getX(), (Gdx.input.getY()), 0);
-            camera.unproject(touch);
-        }
 
+    @Override
+    public void hide() {
+        Gdx.input.setInputProcessor(null);
     }
-*/
-    public void generalUpdate() {
-        if (Gdx.input.isKeyPressed(Input.Keys.Q) || Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-       //     mario.bounds.x -= 5;
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-        //    mario.bounds.x += 5;
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.Z) || Gdx.input.isKeyPressed(Input.Keys.UP)) {
-       //     mario.bounds.y -= 5;
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-       //     mario.bounds.y += 5;
-        }
-      //  if(mario.bounds.overlaps(floor.bounds)) {
-       //     mario.
-      //  }
+
+    @Override
+    public void pause() {
+        // TODO Auto-generated method stub
+    }
+
+    @Override
+    public void resume() {
+        // TODO Auto-generated method stub
     }
 
     @Override
     public void dispose() {
-
+        Gdx.input.setInputProcessor(null);
     }
-    @Override
-    public void resume() { }
-    @Override
-    public void pause() { }
-    /*@Override
-    public void show() {}*/
 
-
-    //Lesser used
+    // * InputProcessor methods ***************************//
 
     @Override
-    public void resize(int width, int height) { }
+    public boolean keyDown(int keycode) {
+        if (keycode == Input.Keys.LEFT)
+            controller.leftPressed();
+        if (keycode == Input.Keys.RIGHT)
+            controller.rightPressed();
+        if (keycode == Input.Keys.Z)
+            controller.jumpPressed();
+        if (keycode == Input.Keys.X)
+            controller.firePressed();
+        return true;
+    }
 
     @Override
-    public void hide() { }
+    public boolean keyUp(int keycode) {
+        if (keycode == Input.Keys.LEFT)
+            controller.leftReleased();
+        if (keycode == Input.Keys.RIGHT)
+            controller.rightReleased();
+        if (keycode == Input.Keys.Z)
+            controller.jumpReleased();
+        if (keycode == Input.Keys.X)
+            controller.fireReleased();
+        return true;
+    }
+
+    @Override
+    public boolean keyTyped(char character) {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public boolean touchDown(int x, int y, int pointer, int button) {
+        if (!Gdx.app.getType().equals(Application.ApplicationType.Android))
+            return false;
+        if (x < width / 2 && y > height / 2) {
+            controller.leftPressed();
+        }
+        if (x > width / 2 && y > height / 2) {
+            controller.rightPressed();
+        }
+        return true;
+    }
+
+    @Override
+    public boolean touchUp(int x, int y, int pointer, int button) {
+        if (!Gdx.app.getType().equals(Application.ApplicationType.Android))
+            return false;
+        if (x < width / 2 && y > height / 2) {
+            controller.leftReleased();
+        }
+        if (x > width / 2 && y > height / 2) {
+            controller.rightReleased();
+        }
+        return true;
+    }
+
+    @Override
+    public boolean touchDragged(int x, int y, int pointer) {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public boolean scrolled(int amount) {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public boolean mouseMoved(int screenX, int screenY) {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+
 }
