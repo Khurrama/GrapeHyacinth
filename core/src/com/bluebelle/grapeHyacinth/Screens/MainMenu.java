@@ -16,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.bluebelle.grapeHyacinth.GrapeHyacinth;
+import com.bluebelle.grapeHyacinth.Screens.SplashScreens.NewGameSplashScreen;
 
 /**
  * Created by Cullen on 11/07/2014.
@@ -91,7 +92,7 @@ public class MainMenu implements Screen {
         buttonStartNewGame.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                ((Game) Gdx.app.getApplicationListener()).setScreen(new StartNewGame());
+                ((Game) Gdx.app.getApplicationListener()).setScreen(new NewGameSplashScreen());
             }
         });
         buttonStartNewGame.pad(20);
