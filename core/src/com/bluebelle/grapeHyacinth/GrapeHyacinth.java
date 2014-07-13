@@ -1,26 +1,43 @@
 package com.bluebelle.grapeHyacinth;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL30;
-import com.bluebelle.grapeHyacinth.Objects.Floor;
-import com.bluebelle.grapeHyacinth.Screens.GameScreen;
-import com.bluebelle.grapeHyacinth.Helpers.LevelRenderer;
+import com.bluebelle.grapeHyacinth.Screens.SplashScreen;
 
 public class GrapeHyacinth extends Game {
 
+    public static final String TITLE = "GrapeHyacinth", VERSION = "0.0.0.0.really.really.reallyEarly";
+
     @Override
     public void create() {
-        setScreen(new GameScreen());
+        setScreen(new SplashScreen());
+    }
+
+    @Override
+    public void dispose() {
+        super.dispose();
+    }
+
+    @Override
+    public void render() {
+        super.render();
+    }
+
+    @Override
+    public void resize(int width, int height) {
+        super.resize(width, height);
+    }
+
+    @Override
+    public void pause() {
+        super.pause();
+    }
+
+    @Override
+    public void resume() {
+        super.resume();
     }
 
 
-    private Floor floor;
-    private LevelRenderer renderer;
 
-    public void render(float delta) {
-        Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1);
-        Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
-        renderer.render();
-}}
+}
 
