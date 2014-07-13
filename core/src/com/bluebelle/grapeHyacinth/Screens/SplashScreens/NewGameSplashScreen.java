@@ -6,9 +6,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.bluebelle.grapeHyacinth.GrapeHyacinth;
 import com.bluebelle.grapeHyacinth.Screens.GameScreen;
-import com.bluebelle.grapeHyacinth.Screens.MainMenu;
 
 /**
  * Created by Cullen on 13/07/2014.
